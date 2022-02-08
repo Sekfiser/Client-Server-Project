@@ -21,53 +21,83 @@ namespace ASP_Server.Migrations
 
             modelBuilder.Entity("ASP_Server.Models.Classroom", b =>
                 {
-                    b.Property<int>("IdClassroom")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Location")
+                    b.Property<int?>("Classroom_number")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("int");
 
-                    b.HasKey("IdClassroom");
+                    b.Property<string>("Frame")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Classrooms");
                 });
 
             modelBuilder.Entity("ASP_Server.Models.Discipline", b =>
                 {
-                    b.Property<int>("Iddiscipline")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("NameDiscipline")
+                    b.Property<string>("Discipline_name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.HasKey("Iddiscipline");
+                    b.HasKey("Id");
 
                     b.ToTable("Disciplines");
                 });
 
-            modelBuilder.Entity("ASP_Server.Models.LessonTime", b =>
+            modelBuilder.Entity("ASP_Server.Models.Faculty", b =>
                 {
-                    b.Property<int>("IdLessonTime")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("LessonNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("Faculty_name")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
 
-                    b.HasKey("IdLessonTime");
+                    b.HasKey("Id");
 
-                    b.ToTable("LessonTimes");
+                    b.ToTable("Faculties");
                 });
 
-            modelBuilder.Entity("ASP_Server.Models.LessonType", b =>
+            modelBuilder.Entity("ASP_Server.Models.Lesson_time", b =>
                 {
-                    b.Property<int>("IdTypeLesson")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Lesson_finish")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<int>("Lesson_number")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Lesson_start")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Lesson_times");
+                });
+
+            modelBuilder.Entity("ASP_Server.Models.Lesson_type", b =>
+                {
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -76,97 +106,147 @@ namespace ASP_Server.Migrations
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)");
 
-                    b.HasKey("IdTypeLesson");
+                    b.HasKey("Id");
 
-                    b.ToTable("LessonTypes");
+                    b.ToTable("Lesson_types");
                 });
 
             modelBuilder.Entity("ASP_Server.Models.Professor", b =>
                 {
-                    b.Property<int>("IdProfessors")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.HasKey("IdProfessors");
+                    b.Property<string>("Patronymic")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Professors");
                 });
 
-            modelBuilder.Entity("ASP_Server.Models.StudyGroup", b =>
+            modelBuilder.Entity("ASP_Server.Models.Speciality", b =>
                 {
-                    b.Property<int>("IdStudyGroups")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("NameGroup")
+                    b.Property<string>("Abbreviated_speciality")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("varchar(15)");
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
 
-                    b.HasKey("IdStudyGroups");
+                    b.Property<string>("Speciality_name")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
 
-                    b.ToTable("StudyGroups");
+                    b.HasKey("Id");
+
+                    b.ToTable("Specialities");
+                });
+
+            modelBuilder.Entity("ASP_Server.Models.Study_group", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Course")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Education_form")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<int?>("FacultyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Group_name")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<int?>("SpecialityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacultyId");
+
+                    b.HasIndex("SpecialityId");
+
+                    b.ToTable("Study_groups");
                 });
 
             modelBuilder.Entity("ASP_Server.Models.Timetable", b =>
                 {
-                    b.Property<int>("IdSchedule")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClassroomIdClassroom")
+                    b.Property<int?>("ClassroomId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DisciplineIddiscipline")
+                    b.Property<int?>("DisciplineId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LessonTimeIdLessonTime")
+                    b.Property<int?>("Lesson_timeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LessonTypeIdTypeLesson")
+                    b.Property<int?>("Lesson_typeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProfessorIdProfessors")
+                    b.Property<int?>("ProfessorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StudyGroupIdStudyGroups")
+                    b.Property<int?>("Study_groupId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WeekDayIdDay")
+                    b.Property<int?>("Week_dayId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WeekParityIdweekParity")
+                    b.Property<int?>("Week_parityId")
                         .HasColumnType("int");
 
-                    b.HasKey("IdSchedule");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ClassroomIdClassroom");
+                    b.HasIndex("ClassroomId");
 
-                    b.HasIndex("DisciplineIddiscipline");
+                    b.HasIndex("DisciplineId");
 
-                    b.HasIndex("LessonTimeIdLessonTime");
+                    b.HasIndex("Lesson_timeId");
 
-                    b.HasIndex("LessonTypeIdTypeLesson");
+                    b.HasIndex("Lesson_typeId");
 
-                    b.HasIndex("ProfessorIdProfessors");
+                    b.HasIndex("ProfessorId");
 
-                    b.HasIndex("StudyGroupIdStudyGroups");
+                    b.HasIndex("Study_groupId");
 
-                    b.HasIndex("WeekDayIdDay");
+                    b.HasIndex("Week_dayId");
 
-                    b.HasIndex("WeekParityIdweekParity");
+                    b.HasIndex("Week_parityId");
 
                     b.ToTable("Timetables");
                 });
 
-            modelBuilder.Entity("ASP_Server.Models.WeekDay", b =>
+            modelBuilder.Entity("ASP_Server.Models.Week_day", b =>
                 {
-                    b.Property<int>("IdDay")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -175,14 +255,14 @@ namespace ASP_Server.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("varchar(15)");
 
-                    b.HasKey("IdDay");
+                    b.HasKey("Id");
 
-                    b.ToTable("WeekDays");
+                    b.ToTable("Week_days");
                 });
 
-            modelBuilder.Entity("ASP_Server.Models.WeekParity", b =>
+            modelBuilder.Entity("ASP_Server.Models.Week_parity", b =>
                 {
-                    b.Property<int>("IdweekParity")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -191,60 +271,75 @@ namespace ASP_Server.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("varchar(15)");
 
-                    b.HasKey("IdweekParity");
+                    b.HasKey("Id");
 
-                    b.ToTable("WeekParities");
+                    b.ToTable("Week_parities");
+                });
+
+            modelBuilder.Entity("ASP_Server.Models.Study_group", b =>
+                {
+                    b.HasOne("ASP_Server.Models.Faculty", "Faculty")
+                        .WithMany()
+                        .HasForeignKey("FacultyId");
+
+                    b.HasOne("ASP_Server.Models.Speciality", "Speciality")
+                        .WithMany()
+                        .HasForeignKey("SpecialityId");
+
+                    b.Navigation("Faculty");
+
+                    b.Navigation("Speciality");
                 });
 
             modelBuilder.Entity("ASP_Server.Models.Timetable", b =>
                 {
                     b.HasOne("ASP_Server.Models.Classroom", "Classroom")
                         .WithMany()
-                        .HasForeignKey("ClassroomIdClassroom");
+                        .HasForeignKey("ClassroomId");
 
                     b.HasOne("ASP_Server.Models.Discipline", "Discipline")
                         .WithMany()
-                        .HasForeignKey("DisciplineIddiscipline");
+                        .HasForeignKey("DisciplineId");
 
-                    b.HasOne("ASP_Server.Models.LessonTime", "LessonTime")
+                    b.HasOne("ASP_Server.Models.Lesson_time", "Lesson_time")
                         .WithMany()
-                        .HasForeignKey("LessonTimeIdLessonTime");
+                        .HasForeignKey("Lesson_timeId");
 
-                    b.HasOne("ASP_Server.Models.LessonType", "LessonType")
+                    b.HasOne("ASP_Server.Models.Lesson_type", "Lesson_type")
                         .WithMany()
-                        .HasForeignKey("LessonTypeIdTypeLesson");
+                        .HasForeignKey("Lesson_typeId");
 
                     b.HasOne("ASP_Server.Models.Professor", "Professor")
                         .WithMany()
-                        .HasForeignKey("ProfessorIdProfessors");
+                        .HasForeignKey("ProfessorId");
 
-                    b.HasOne("ASP_Server.Models.StudyGroup", "StudyGroup")
+                    b.HasOne("ASP_Server.Models.Study_group", "Study_group")
                         .WithMany()
-                        .HasForeignKey("StudyGroupIdStudyGroups");
+                        .HasForeignKey("Study_groupId");
 
-                    b.HasOne("ASP_Server.Models.WeekDay", "WeekDay")
+                    b.HasOne("ASP_Server.Models.Week_day", "Week_day")
                         .WithMany()
-                        .HasForeignKey("WeekDayIdDay");
+                        .HasForeignKey("Week_dayId");
 
-                    b.HasOne("ASP_Server.Models.WeekParity", "WeekParity")
+                    b.HasOne("ASP_Server.Models.Week_parity", "Week_parity")
                         .WithMany()
-                        .HasForeignKey("WeekParityIdweekParity");
+                        .HasForeignKey("Week_parityId");
 
                     b.Navigation("Classroom");
 
                     b.Navigation("Discipline");
 
-                    b.Navigation("LessonTime");
+                    b.Navigation("Lesson_time");
 
-                    b.Navigation("LessonType");
+                    b.Navigation("Lesson_type");
 
                     b.Navigation("Professor");
 
-                    b.Navigation("StudyGroup");
+                    b.Navigation("Study_group");
 
-                    b.Navigation("WeekDay");
+                    b.Navigation("Week_day");
 
-                    b.Navigation("WeekParity");
+                    b.Navigation("Week_parity");
                 });
 #pragma warning restore 612, 618
         }

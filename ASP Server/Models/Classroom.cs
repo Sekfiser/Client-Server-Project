@@ -5,10 +5,13 @@ namespace ASP_Server.Models
     public class Classroom
     {
         [Key]
-        public int IdClassroom { get; set; }
+        public int Id { get; set; }
         
         [Required]
-        [StringLength(50)]
-        public string? Location { get; set; }                
+        [StringLength(100)]
+        public string? Frame { get; set; }
+
+        [Required]
+        public int? Classroom_number { get; set; }
     }
 }

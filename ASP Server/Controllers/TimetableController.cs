@@ -40,6 +40,6 @@ public class TimetableController : ControllerBase
     public IActionResult Create(Timetable newTimetable)
     {
         var timetable = _service.Create(newTimetable);
-        return CreatedAtAction(nameof(GetById), new { id = timetable!.IdSchedule }, timetable);
+        return CreatedAtAction(nameof(GetById), new { id = timetable!.Id }, timetable);
     }
 }

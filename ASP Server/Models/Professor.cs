@@ -6,10 +6,18 @@ namespace ASP_Server.Models
     public class Professor
     {
         [Key]
-        public int IdProfessors { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string? FullName { get; set; }
+        public string? Name { get; set; }
+
+        [Required]
+        [MaxLength(45)]
+        public string? Surname { get; set; }
+
+        [Required]
+        [MaxLength(45)]
+        public string? Patronymic { get; set; }
     }
 }
